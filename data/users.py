@@ -10,17 +10,18 @@ from .db_session import SqlAlchemyBase
 
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'users'
+    print(1)
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     modified_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
-    statistic = orm.relationship("Statistic", back_populates='user')
+    #statistic = orm.relationship("Statistic", back_populates='user')
 
 
     def __repr__(self):
-        return f'<Colonist> {self.id} {self.surname} {self.name}'
+        return f'<Colonist> {self.id} {self.email} {self.name}'
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

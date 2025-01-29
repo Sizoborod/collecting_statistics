@@ -33,18 +33,20 @@ def get_one_user(user_id):
 
 @blueprint.route('/api/users', methods=['POST'])
 def create_user():
+    print('ghbikb')
     if not request.json:
         return make_response(jsonify({'error': 'Empty request'}), 400)
     elif not all(key in request.json for key in ['name', 'email', 'hashed_password']):
+        print('erwerwewr')
         return make_response(jsonify({'error': 'Bad request'}), 400)
-
+    print('ddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+    print('asfsd', request.data)
     db_sess = db_session.create_session()
-    users = User(
-        name=request.json['name'],
+    print('sdfsadsadd')
+    print(request.json['name'], request.json['email'], request.json['hashed_password'])
+    users = User(name=request.json['name'],
         email=request.json['email'],
-        hashed_password=set_password(request.json['hashed_password'])
-
-    )
+        hashed_password=set_password(request.json['hashed_password']))
 
     db_sess.add(users)
     db_sess.commit()
